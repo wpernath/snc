@@ -1,5 +1,6 @@
 #!/bin/bash
-
+# my new setting
+CRC_BASE_DOMAIN=sec.testing
 set -exuo pipefail
 
 export LC_ALL=C.UTF-8
