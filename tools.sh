@@ -20,8 +20,8 @@ ARCH=$(uname -m)
 case "${ARCH}" in
     x86_64)
         yq_ARCH="amd64"
-        SNC_GENERATE_MACOS_BUNDLE=1
-	SNC_GENERATE_WINDOWS_BUNDLE=1
+        SNC_GENERATE_MACOS_BUNDLE=
+	SNC_GENERATE_WINDOWS_BUNDLE=
 	;;
     *)
         yq_ARCH=${ARCH}
@@ -139,5 +139,6 @@ function generate_htpasswd_file {
    local pass_file=$2
    random_password=$(cat $1/auth/kubeadmin-password)
    ${HTPASSWD} -c -B -b ${pass_file} developer developer
+   ${HTPASSWD} -B -b ${pass_file} wanja ela1ne
    ${HTPASSWD} -B -b ${pass_file} kubeadmin ${random_password}
 }
