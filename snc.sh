@@ -4,7 +4,7 @@ CRC_BASE_DOMAIN=sec-test
 #DOMAIN_MEM=14336
 DOMAIN_MEM=24576
 DOMAIN_VCPU=6
-OPENSHIFT_VERSION=4.7.9
+#OPENSHIFT_VERSION=4.7.9
 #OPENSHIFT_VERSION=latest-4.7
 
 set -exuo pipefail
@@ -46,7 +46,7 @@ if test -n "${OPENSHIFT_VERSION-}"; then
     OPENSHIFT_RELEASE_VERSION=${OPENSHIFT_VERSION}
     echo "Using release ${OPENSHIFT_RELEASE_VERSION} from OPENSHIFT_VERSION"
 else
-    OPENSHIFT_RELEASE_VERSION="$(curl -L "${MIRROR}"/latest-4.8/release.txt | sed -n 's/^ *Version: *//p')"
+    OPENSHIFT_RELEASE_VERSION="$(curl -L "${MIRROR}"/latest-4.7/release.txt | sed -n 's/^ *Version: *//p')"
     if test -n "${OPENSHIFT_RELEASE_VERSION}"; then
         echo "Using release ${OPENSHIFT_RELEASE_VERSION} from the latest mirror"
     else
