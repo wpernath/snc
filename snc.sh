@@ -42,7 +42,7 @@ run_preflight_checks
 # If user defined the OPENSHIFT_VERSION environment variable then use it.
 # Otherwise use the tagged version if available
 if test -n "${OPENSHIFT_VERSION-}"; then
-    OPENSHIFT_RELEASE_VERSION=${OPENSHIFT_VERSION}
+    OPENSHIFT_RELEASE_VERSION="$(curl -L "${MIRROR}"/${OPENSHIFT_VERSION}/release.txt | sed -n 's/^ *Version: *//p')"
     echo "Using release ${OPENSHIFT_RELEASE_VERSION} from OPENSHIFT_VERSION"
 else
     OPENSHIFT_RELEASE_VERSION="$(curl -L "${MIRROR}"/latest-4.8/release.txt | sed -n 's/^ *Version: *//p')"
