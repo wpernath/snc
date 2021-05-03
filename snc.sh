@@ -4,8 +4,8 @@ CRC_BASE_DOMAIN=sec-test
 #DOMAIN_MEM=14336
 DOMAIN_MEM=24576
 DOMAIN_VCPU=6
-#OPENSHIFT_VERSION=4.7.9
-OPENSHIFT_VERSION=latest-4.7
+OPENSHIFT_VERSION=4.7.9
+#OPENSHIFT_VERSION=latest-4.7
 
 set -exuo pipefail
 
@@ -42,7 +42,8 @@ run_preflight_checks
 # If user defined the OPENSHIFT_VERSION environment variable then use it.
 # Otherwise use the tagged version if available
 if test -n "${OPENSHIFT_VERSION-}"; then
-    OPENSHIFT_RELEASE_VERSION="$(curl -L "${MIRROR}"/${OPENSHIFT_VERSION}/release.txt | sed -n 's/^ *Version: *//p')"
+    #OPENSHIFT_RELEASE_VERSION="$(curl -L "${MIRROR}"/${OPENSHIFT_VERSION}/release.txt | sed -n 's/^ *Version: *//p')"
+    OPENSHIFT_RELEASE_VERSION=OPENSHIFT_VERSION
     echo "Using release ${OPENSHIFT_RELEASE_VERSION} from OPENSHIFT_VERSION"
 else
     OPENSHIFT_RELEASE_VERSION="$(curl -L "${MIRROR}"/latest-4.8/release.txt | sed -n 's/^ *Version: *//p')"
