@@ -1,6 +1,12 @@
 #!/bin/bash
 # my new setting
-CRC_BASE_DOMAIN=sec.testing
+CRC_BASE_DOMAIN=sec-test
+#DOMAIN_MEM=14336
+DOMAIN_MEM=24576
+DOMAIN_VCPU=6
+#OPENSHIFT_VERSION=4.7.9
+OPENSHIFT_VERSION=latest-4.7
+
 set -exuo pipefail
 
 export LC_ALL=C.UTF-8
@@ -133,8 +139,8 @@ ${YQ} eval-all --inplace 'select(fileIndex == 0) * select(filename == "cvo-overr
 ${YQ} eval --inplace ".spec.domain = \"apps-${CRC_VM_NAME}.${BASE_DOMAIN}\"" ${INSTALL_DIR}/manifests/cluster-ingress-02-config.yml
 # Add master memory to 12 GB and 6 cpus 
 # This is only valid for openshift 4.3 onwards
-${YQ} eval --inplace '.spec.providerSpec.value.domainMemory = 14336' ${INSTALL_DIR}/openshift/99_openshift-cluster-api_master-machines-0.yaml
-${YQ} eval --inplace '.spec.providerSpec.value.domainVcpu = 6' ${INSTALL_DIR}/openshift/99_openshift-cluster-api_master-machines-0.yaml
+${YQ} eval --inplace '.spec.providerSpec.value.domainMemory = ${DOMAIN_MEM}' ${INSTALL_DIR}/openshift/99_openshift-cluster-api_master-machines-0.yaml
+${YQ} eval --inplace '.spec.providerSpec.value.domainVcpu = ${DOMAIN_VCPU}' ${INSTALL_DIR}/openshift/99_openshift-cluster-api_master-machines-0.yaml
 # Add master disk size to 31 GiB
 # This is only valid for openshift 4.5 onwards
 ${YQ} eval --inplace '.spec.providerSpec.value.volume.volumeSize = 33285996544' ${INSTALL_DIR}/openshift/99_openshift-cluster-api_master-machines-0.yaml
